@@ -3,7 +3,7 @@ Questo repository contiene diversi esempi e spunti per l'ambiente *PowerQuery*
 
 Inizio delle informazioni
 
-Arrivto ad Example 2 page 39
+Arrivato ad Chapter 2 page 51
 
 ## Estrarre da una lista di colonne solo le non date
 Se ho una lista di colonne tipo:
