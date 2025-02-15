@@ -1,5 +1,8 @@
 # PowerQuery
 Questo repository contiene diversi esempi e spunti per l'ambiente *PowerQuery*
+
+Inizio delle informazioni
+
 Arrivto ad Example 2 page 39
 
 ## Estrarre da una lista di colonne solo le non date
