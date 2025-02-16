@@ -3,7 +3,7 @@ Questo repository contiene diversi esempi e spunti per l'ambiente *PowerQuery*
 
 Inizio delle informazioni
 
-Arrivato ad Chapter 2 page 51
+Arrivato ad Chapter 3 page 64
 
 ## Estrarre da una lista di colonne solo le non date
 Se ho una lista di colonne tipo:
@@ -30,4 +30,16 @@ Se ho una lista di colonne tipo:
     each not (try Date.From(_))
 )
 
+```
+
+## Skippare una lista in base al tipo di dato
+Per non avere un numero hard coded all'interno del codice, invece di usare
+```sql
+= List.Skip (Record.ToList (_), 2)
+```
+
+è possibile dirgli di skippare finchè non trovi un numero:
+
+```sql
+= List.Skip (Record.ToList (_), each not ( _ is number)
 ```
