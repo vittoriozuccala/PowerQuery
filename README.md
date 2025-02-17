@@ -3,7 +3,7 @@ Questo repository contiene diversi esempi e spunti per l'ambiente *PowerQuery*
 
 Inizio delle informazioni
 
-Arrivato ad Chapter 3 page 64
+Arrivato a pagina 78: "Exercise 1: Nest Lists in a Record"
 
 ## Estrarre da una lista di colonne solo le non date
 Se ho una lista di colonne tipo:
