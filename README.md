@@ -4,7 +4,7 @@ Questo repository contiene diversi esempi e spunti per l'ambiente *PowerQuery*
 
 Inizio delle informazioni
 
-Arrivato a pagina 87: "Exercise 1: Replace OR with a List Function"
+Arrivato a pagina 110: "Example 3: Replacing Multiple Values by Using List.Accumulate"
 
 ## Chapter 01: Listes
 ### Estrarre da una lista di colonne solo le non date
