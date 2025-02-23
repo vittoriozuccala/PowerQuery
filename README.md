@@ -64,6 +64,15 @@ if List.Contains({"South", "West"}, [Region])
           then "North-East" else "NA"
 ```
 
+Per condizioni algebriche:
+
+```sql
+=if 
+List.Contains(
+    {[Sales] > 14500, [Profit] > 5000}, true
+) then [Sales] * 0.1 else 0
+```
+
 Analogamente c'è un modo diverso per fare questo AND:
 Condition:
 - If the Date column value is between January and March and the Region Group column is South-West, return Seasonal.
