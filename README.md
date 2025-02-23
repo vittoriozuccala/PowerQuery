@@ -4,7 +4,7 @@ Questo repository contiene diversi esempi e spunti per l'ambiente *PowerQuery*
 
 Inizio delle informazioni
 
-Arrivato ad Chapter 3 page 64
+Arrivato a pagina 87: "Exercise 1: Replace OR with a List Function"
 
 ## Chapter 01: Listes
 ### Estrarre da una lista di colonne solo le non date
@@ -47,55 +47,48 @@ Per non avere un numero hard coded all'interno del codice, invece di usare
 = List.Skip (Record.ToList (_), each not ( _ is number)
 ```
 
-## Chapter 03: Table
-### Table.Schema
-E' possibile avere lo schema delle tabelle inteso come *nome campi*, *tipi di dato*, etc...
-
-```vb
-Table.Schema(Table1) = Table.Schema(Table2)
+## Modi differenti per OR ed AND
+C'è un modo diverso per fare questo OR:
+```sql
+if [Region] = "South" or [Region] = "West"
+       then "South-West" else
+           if [Region] = "North" or [Region] = "East"
+       then "North-East" else "NA"
 ```
 
-### Table.Profile
-Per sapere se una colonna è interamente null e cmq per avere uno schema che dica il valore minimo, quello massimo, la deviazione sandard di ogni campo, è possibile utilizzare la funzione Table.Profile.
+utilizzanto List.Contains:
+```sql
+if List.Contains({"South", "West"}, [Region])
+          then "South-West" else
+            if List.Contains({"North", "East"}, [Region])
+          then "North-East" else "NA"
+```
 
-A quel punto posso eliminare le colonne vuote in maniera decisamente più corretta come:
-
-```vb
-= Table.SelectRows(
-    Table.Profile([Column], [Count], [NullCount]),
-    each [Count] = [NullCount]
+Analogamente c'è un modo diverso per fare questo AND:
+Condition:
+- If the Date column value is between January and March and the Region Group column is South-West, return Seasonal.
+- Otherwise, return Non Seasonal
+La sintassi è la seguente
+```sql
+=List.ContainsAll (
+    {A List to search in},
+    {List of values to search for}
+)
+--  The following example returns true
+-- because both of the values are found.
+=List.ContainsAll (
+    {"Boy", "Cat", "Horse"}, -- List of values to search in
+    {"Cat", "Boy"} -- List of values to search for
 )
 ```
 
-Non è sempre utile prendere tutta la tabella, soprattutto se molto grande.
-Eventualmente si può prendere come esempio, le prime 5000 righe
-
-```vb
-= Table.Profile (Table.FirstN (LargeTable, 5000))
+utilizzanto List.ContainsAll:
+```M
+if
+    List.ContainsAll(
+        {"January","February","March","North-East"},
+        {Date.MonthName([Date]), [Region Group]}
+    )
+then "Seasonal"
+else "Non Seasonal"
 ```
-
-## Chapter 04: Navigation
-E' possibile usare {} per scegliere una riga e quindi un record oppure [] per scegliere una colonna sottoforma di lista.
-Nel caso in cui non trovi il record potrebbe andare in errore:
-
-```vb
-= TableReference {[Column 1 = "value", Column 2 = "value"]} [Column4]
-```
-
-Per mitigare questo fenomeno basta inserire un punto interrogativo alla fine.
-Questo mitiga il fatto che non trovi il record o la colonna.
-
-```sql
-// this returns an error since there are only 3 columns
-#"Changed Type" {[Col1 = "B"]} [Col4]
-// writing a ? at the end of column reference
-// returns a null instead
-#"Changed Type" {[Col1 = "B"]} [Col4] ?
-// ? can be written after the lookup operator too.
-#"Changed Type" {[Col1 = "NewValue"]} ?
-// ? can also be written both after
-// the column and row reference
-#"Changed Type" {[Col1 = "NewValue"]} ? [Col4] ?
-```
-
-## Chapter 05: Manipulating between Lists, Records, Tables
